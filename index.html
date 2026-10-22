@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LineUp - Back office</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ========== PAGE DE CONNEXION ========== -->
+    <div id="page-connexion" class="min-h-screen flex">
+      <!-- Partie gauche (noire) -->
+      <div class="hidden md:flex flex-col justify-between w-[42%] p-12 bg-noir">
+        <div>
+          <p class="titre-font font-bold italic text-[30px] text-white">
+            Line<span class="text-or">Up</span>
+          </p>
+          <p
+            class="text-[10px] font-semibold uppercase tracking-[0.22em] mt-1 text-or">
+            Interface Staff
+          </p>
+        </div>
+
+        <div>
+          <div class="w-8 h-0.5 mb-6 bg-bordeaux"></div>
+          <p
+            class="titre-font font-bold italic text-[26px] leading-snug text-white">
+            "Le théâtre est la poésie qui sort du livre."
+          </p>
+          <p class="mt-4 text-[13px] text-white/40">Federico García Lorca</p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-white/10 bg-white/5">
+          <p class="text-[13px] font-semibold text-white">
+            Accès réservé au staff
+          </p>
+          <p class="text-[11px] text-white/40">
+            Les Planches Festival · Lyon 2026
+          </p>
+        </div>
+      </div>
+
+      <!-- Partie droite (formulaire) -->
+      <div class="flex-1 flex items-center justify-center px-8 py-12">
+        <div class="w-full max-w-[420px]">
+          <p
+            class="text-[11px] font-bold uppercase tracking-[0.2em] mb-3 text-or">
+            Connexion Staff
+          </p>
+          <h1
+            class="titre-font font-bold italic text-[36px] leading-tight mb-2">
+            Bienvenue sur<br />le back-office
+          </h1>
+          <p class="text-[14px] mb-8 text-gris">
+            Connectez-vous pour gérer les ateliers et réservations.
+          </p>
+
+          <label class="label" for="email">Adresse e-mail</label>
+          <input
+            id="email"
+            type="email"
+            class="champ bg-white mb-5"
+            placeholder="staff@lesplanches.fr" />
+
+          <label class="label" for="mdp">Mot de passe</label>
+          <div class="relative mb-5">
+            <input
+              id="mdp"
+              type="password"
+              class="champ bg-white"
+              placeholder="••••••••" />
+            <button
+              id="bouton-voir-mdp"
+              class="absolute right-4 top-1/2 -translate-y-1/2 text-[12px] text-gris-clair">
+              Voir
+            </button>
+          </div>
+
+          <label class="flex items-center gap-2 mb-5 text-[13px] text-gris">
+            <input type="checkbox" checked class="accent-[#8b1a2a]" />
+            Rester connecté
+          </label>
+
+          <p id="erreur-connexion" class="text-[13px] mb-3 text-bordeaux"></p>
+
+          <button id="bouton-connexion" class="bouton bouton-rouge w-full py-4">
+            Se connecter →
+          </button>
+
+          <p class="mt-6 text-center text-[12px] text-gris-clair">
+            Accès réservé au personnel accrédité.
+            <span class="font-medium text-bordeaux">Demander un accès</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== BACK OFFICE ========== -->
+    <div id="back-office" class="flex min-h-screen cache">
+      <!-- Menu de gauche -->
+      <aside class="w-[220px] flex flex-col shrink-0 bg-noir min-h-screen">
+        <div class="px-6 pt-7 pb-6">
+          <p class="titre-font font-bold italic text-[22px] text-white">
+            Line<span class="text-or">Up</span>
+          </p>
+          <p class="text-[9px] font-bold uppercase tracking-[0.25em] text-or">
+            Staff Admin
+          </p>
+        </div>
+
+        <nav class="flex-1 px-3 space-y-1">
+          <button id="menu-dashboard" class="menu-lien">Tableau de bord</button>
+          <button id="menu-ateliers" class="menu-lien">Ateliers</button>
+          <button id="menu-reservations" class="menu-lien">Réservations</button>
+        </nav>
+
+        <div class="px-3 py-4 border-t border-white/10">
+          <div class="flex items-center gap-2 px-3 mb-3">
+            <div class="avatar bg-bordeaux">JB</div>
+            <div>
+              <p class="text-[12px] font-medium text-white">Jean Beaumont</p>
+              <p class="text-[10px] text-white/30">Staff · Admin</p>
+            </div>
+          </div>
+          <button id="bouton-deconnexion" class="menu-lien text-[12px]">
+            Se déconnecter
+          </button>
+        </div>
+      </aside>
+
+      <!-- Page : tableau de bord -->
+      <main id="page-dashboard" class="flex-1 p-8">
+        <h1 class="titre-font text-[26px] font-bold">Tableau de bord</h1>
+        <p class="text-[13px] mb-7 text-gris">
+          Les Planches Festival · 5–7 sept. 2026 · Lyon
+        </p>
+
+        <div class="grid grid-cols-4 gap-4 mb-7">
+          <div class="carte p-5">
+            <p class="entete mb-3">Total ateliers</p>
+            <p id="stat-ateliers" class="titre-font text-[34px] font-bold"></p>
+          </div>
+          <div class="carte p-5">
+            <p class="entete mb-3">Réservations confirmées</p>
+            <p
+              id="stat-reservations"
+              class="titre-font text-[34px] font-bold text-bordeaux"></p>
+          </div>
+          <div class="carte p-5">
+            <p class="entete mb-3">Taux de remplissage moyen</p>
+            <p
+              id="stat-remplissage"
+              class="titre-font text-[34px] font-bold text-or"></p>
+          </div>
+          <div class="carte p-5">
+            <p class="entete mb-3">Ateliers complets</p>
+            <p
+              id="stat-complets"
+              class="titre-font text-[34px] font-bold text-bordeaux"></p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div class="carte p-6">
+            <div class="flex justify-between mb-5">
+              <h2 class="titre-font text-[16px] font-semibold">
+                Remplissage des ateliers
+              </h2>
+              <button
+                id="lien-voir-ateliers"
+                class="text-[12px] font-medium text-bordeaux">
+                Gérer →
+              </button>
+            </div>
+            <div id="liste-remplissage" class="space-y-4"></div>
+          </div>
+
+          <div class="carte p-6">
+            <div class="flex justify-between mb-5">
+              <h2 class="titre-font text-[16px] font-semibold">
+                Réservations récentes
+              </h2>
+              <button
+                id="lien-voir-reservations"
+                class="text-[12px] font-medium text-bordeaux">
+                Voir tout →
+              </button>
+            </div>
+            <div id="liste-recentes" class="space-y-3"></div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Page : ateliers -->
+      <main id="page-ateliers" class="flex-1 p-8 cache">
+        <div class="flex justify-between items-start mb-7">
+          <div>
+            <h1 class="titre-font text-[26px] font-bold">Ateliers</h1>
+            <p class="text-[13px] text-gris">
+              Les Planches Festival · 5–7 sept. 2026 · Lyon
+            </p>
+          </div>
+          <button
+            id="bouton-ajouter-atelier"
+            class="bouton bouton-rouge text-[13px]">
+            + Ajouter un atelier
+          </button>
+        </div>
+
+        <!-- Filtre par jour (boutons ajoutés dans ateliers.js) -->
+        <div id="filtre-jours-ateliers" class="flex gap-2 mb-5"></div>
+
+        <div class="carte overflow-hidden">
+          <div
+            class="grid grid-cols-[2fr_1fr_1fr_1.4fr_1fr_100px] px-5 py-3 border-b border-[#ede6df]">
+            <p class="entete">Atelier</p>
+            <p class="entete">Catégorie</p>
+            <p class="entete">Horaire</p>
+            <p class="entete">Remplissage</p>
+            <p class="entete">Statut</p>
+            <p class="entete"></p>
+          </div>
+          <div id="tableau-ateliers"></div>
+        </div>
+      </main>
+
+      <!-- Page : réservations -->
+      <main id="page-reservations" class="flex-1 p-8 cache">
+        <h1 class="titre-font text-[26px] font-bold">Réservations</h1>
+        <p class="text-[13px] mb-6 text-gris">
+          Les Planches Festival · 5–7 sept. 2026 · Lyon
+        </p>
+
+        <!-- Filtre par jour (boutons ajoutés dans reservations.js) -->
+        <div id="filtre-jours-reservations" class="flex gap-2 mb-5"></div>
+
+        <div class="carte overflow-hidden">
+          <div
+            class="grid grid-cols-[1.8fr_2fr_1fr_1fr] px-5 py-3 border-b border-[#ede6df]">
+            <p class="entete">Participant</p>
+            <p class="entete">Atelier</p>
+            <p class="entete">Statut</p>
+            <p class="entete">Action</p>
+          </div>
+          <div id="tableau-reservations"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ========== FORMULAIRE AJOUT / MODIFICATION D'UN ATELIER ========== -->
+    <div id="formulaire" class="fond-modale cache">
+      <div class="w-full max-w-lg bg-white rounded-2xl overflow-hidden">
+        <div
+          class="flex justify-between items-center px-6 py-4 border-b border-[#ede6df]">
+          <h2
+            id="titre-formulaire"
+            class="titre-font text-[17px] font-semibold">
+            Nouvel atelier
+          </h2>
+          <button
+            id="bouton-fermer-formulaire"
+            class="text-[20px] text-gris-clair">
+            ×
+          </button>
+        </div>
+
+        <div class="px-6 py-5 grid grid-cols-2 gap-4">
+          <div class="col-span-2">
+            <label class="label">Titre *</label>
+            <input
+              id="champ-titre"
+              class="champ"
+              placeholder="Nom de l'atelier" />
+          </div>
+          <div>
+            <label class="label">Catégorie *</label>
+            <!-- Options ajoutées depuis l'API dans ateliers.js -->
+            <select id="champ-categorie" class="champ"></select>
+          </div>
+          <div>
+            <label class="label">Date *</label>
+            <input id="champ-date" type="date" class="champ" />
+          </div>
+          <div>
+            <label class="label">Début *</label>
+            <input id="champ-debut" type="time" class="champ" />
+          </div>
+          <div>
+            <label class="label">Fin *</label>
+            <input id="champ-fin" type="time" class="champ" />
+          </div>
+          <div>
+            <label class="label">Capacité max *</label>
+            <input id="champ-places" type="number" min="1" class="champ" />
+          </div>
+          <div class="col-span-2">
+            <label class="label">Description</label>
+            <textarea
+              id="champ-description"
+              rows="3"
+              class="champ resize-none"
+              placeholder="Description de l'atelier…"></textarea>
+          </div>
+          <p
+            id="erreur-formulaire"
+            class="col-span-2 text-[12px] text-bordeaux"></p>
+        </div>
+
+        <div class="flex gap-3 px-6 py-4 border-t border-[#ede6df]">
+          <button
+            id="bouton-annuler-formulaire"
+            class="bouton bouton-gris flex-1">
+            Annuler
+          </button>
+          <button id="bouton-enregistrer" class="bouton bouton-rouge flex-1">
+            Créer l'atelier
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/script.js"></script>
+  </body>
+</html>
