@@ -74,19 +74,19 @@ function convertirWorkshop(workshop, categories) {
 
   return {
     id: workshop.id,
-    titre: workshop.nameWorkshop,
-    date: formaterJour(workshop.startTimeWorkshop),
+    titre: workshop.name,
+    date: formaterJour(workshop.startTime),
     horaire:
-      formaterHeure(workshop.startTimeWorkshop) +
+      formaterHeure(workshop.startTime) +
       " – " +
-      formaterHeure(workshop.endTimeWorkshop),
-    debut: workshop.startTimeWorkshop,
-    fin: workshop.endTimeWorkshop,
-    places: workshop.capacityMaxWorkshop,
-    inscrits: workshop.subscribersNbWorkshop,
+      formaterHeure(workshop.endTime),
+    debut: workshop.startTime,
+    fin: workshop.endTime,
+    places: workshop.capacityMax,
+    inscrits: workshop.subscribersNb,
     idCategorie: workshop.category.id,
     categorie: nomCategorie,
-    description: workshop.descriptionWorkshop,
+    description: workshop.description,
   };
 }
 
@@ -127,7 +127,7 @@ export async function chargerAteliers() {
 
   // Tri par heure de début
   workshops.sort(function (a, b) {
-    return a.startTimeWorkshop.localeCompare(b.startTimeWorkshop);
+    return a.startTime.localeCompare(b.startTime);
   });
 
   donnees.ateliers = [];
